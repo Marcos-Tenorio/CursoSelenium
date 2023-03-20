@@ -95,10 +95,36 @@ public class TestCadastro {
 		driver.findElement(By.id("elementosForm:sobrenome")).sendKeys("Tenorio");
 		driver.findElement(By.id("elementosForm:sexo:0")).click();
 		driver.findElement(By.id("elementosForm:comidafavorita:0")).click();
-		driver.findElement(By.id("elementosForm:comidafavorita:3")).click();
+		Select combo = new Select(driver.findElement(By.id("elementosForm:esportes")));
+		combo.selectByVisibleText("Karate");
+		combo.selectByVisibleText("O que eh esporte?");
 		driver.findElement(By.id("elementosForm:cadastrar")).click(); 
 		Alert alert = driver.switchTo().alert();	
-		Assert.assertEquals("Tem certeza que voce eh vegetariano?", alert.getText());
+		Assert.assertEquals("Voce faz esporte ou nao?", alert.getText());
 		
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
