@@ -9,36 +9,46 @@ import org.openqa.selenium.support.ui.Select;
 
 
 public class TestCadastro {
-
+	
+	private WebDriver driver;
+	private DSL dsl;
+	
+	@Before
+	public void inicializaDriver() {
+		WebDriver driver = new FirefoxDriver();
+		driver.get("file:///C:/Users/SAMSUNG/eclipse-workspace/CursoSelenium/src/main/resources/componentes.html");	
+	}
+	
+	@Ignore
+	@After
+	public void driverQuit(){
+		driver.quit();		
+	}
+	
+	
 	@Test
 	public void cadastroForm() {
-		WebDriver driver = new FirefoxDriver();
-		driver.get("file:///C:/Users/SAMSUNG/eclipse-workspace/CursoSelenium/src/main/resources/componentes.html");
+		dsl.escreve("elementosForm:nome", "Marcos");
+		dsl.escreve("elementosForm:sobrenome", "Tenorio");
+		dsl.clicarRadioButton("elementosForm:sexo:0");
+		dsl.clicarRadioButton("elementosForm:comidaFavorita:2");
+		dsl.selecionarCombo("elementosForm:escolaridade", "Mestrado");
+		dsl.selecionarCombo("elementosForm:esportes", "Natacao");
+		dsl.clicarBotao("elementosForm:cadastrar");
 		
-		driver.findElement(By.id("elementosForm:nome")).sendKeys("Marcos");
-		driver.findElement(By.id("elementosForm:sobrenome")).sendKeys("Tenorio");
-		driver.findElement(By.id("elementosForm:sexo:0")).click();
-		driver.findElement(By.id("elementosForm:comidaFavorita:2")).click();
-		new Select(driver.findElement(By.id("elementosForm:escolaridade"))).selectByVisibleText("Mestrado");
-		new Select(driver.findElement(By.id("elementosForm:esportes"))).selectByVisibleText("Natacao");
-		driver.findElement(By.id("elementosForm:cadastrar")).click();
-		
-		Assert.assertTrue(driver.findElement(By.id("resultado")).getText().startsWith("Cadastrado!"));
-		Assert.assertTrue(driver.findElement(By.id("descNome")).getText().endsWith("Marcos"));
-		Assert.assertTrue(driver.findElement(By.id("descSobrenome")).getText().endsWith("Tenorio"));
-		Assert.assertTrue(driver.findElement(By.id("descSexo")).getText().endsWith("Masculino"));
-		Assert.assertTrue(driver.findElement(By.id("descComida")).getText().endsWith("Pizza"));
-		Assert.assertTrue(driver.findElement(By.id("descEscolaridade")).getText().endsWith("mestrado"));
-		Assert.assertTrue(driver.findElement(By.id("descEsportes")).getText().endsWith("Natacao"));
+		Assert.assertTrue(dsl.obterTexto("resultado").startsWith("Cadastrado!"));
+		Assert.assertTrue(dsl.obterTexto("descNome").endsWith("Marcos"));
+		Assert.assertTrue(dsl.obterTexto("descSobrenome").endsWith("Tenorio"));
+		Assert.assertTrue(dsl.obterTexto("descSexo").endsWith("Masculino"));
+		Assert.assertTrue(dsl.obterTexto("descComida").endsWith("Pizza"));
+		Assert.assertTrue(dsl.obterTexto("descEscolaridade").endsWith("mestrado"));
+		Assert.assertTrue(dsl.obterTexto("descEsportes").endsWith("Natacao"));
 					
 	}
 	
 
 	@Test
 	public void validaNomeObrigatorio() {
-		WebDriver driver = new FirefoxDriver();
-		driver.get("file:///C:/Users/SAMSUNG/eclipse-workspace/CursoSelenium/src/main/resources/componentes.html");
-		
 		driver.findElement(By.id("elementosForm:cadastrar")).click();
 		Alert alert = driver.switchTo().alert();	
 		Assert.assertEquals("Nome eh obrigatorio", alert.getText());
@@ -47,9 +57,6 @@ public class TestCadastro {
 	
 	@Test
 	public void validaSobrenomeObrigatorio() {
-		WebDriver driver = new FirefoxDriver();
-		driver.get("file:///C:/Users/SAMSUNG/eclipse-workspace/CursoSelenium/src/main/resources/componentes.html");
-		
 		driver.findElement(By.id("elementosForm:nome")).sendKeys("Marcos");
 		driver.findElement(By.id("elementosForm:cadastrar")).click();
 		Alert alert = driver.switchTo().alert();	
@@ -59,9 +66,6 @@ public class TestCadastro {
 	
 	@Test
 	public void validaSexoObrigatorio() {
-		WebDriver driver = new FirefoxDriver();
-		driver.get("file:///C:/Users/SAMSUNG/eclipse-workspace/CursoSelenium/src/main/resources/componentes.html");
-		
 		driver.findElement(By.id("elementosForm:nome")).sendKeys("Marcos");
 		driver.findElement(By.id("elementosForm:sobrenome")).sendKeys("Tenorio");
 		driver.findElement(By.id("elementosForm:cadastrar")).click(); 
@@ -72,9 +76,6 @@ public class TestCadastro {
 	
 	@Test
 	public void validaComidaVegetarianaComCarne() {
-		WebDriver driver = new FirefoxDriver();
-		driver.get("file:///C:/Users/SAMSUNG/eclipse-workspace/CursoSelenium/src/main/resources/componentes.html");
-		
 		driver.findElement(By.id("elementosForm:nome")).sendKeys("Marcos");
 		driver.findElement(By.id("elementosForm:sobrenome")).sendKeys("Tenorio");
 		driver.findElement(By.id("elementosForm:sexo:0")).click();
@@ -88,9 +89,6 @@ public class TestCadastro {
 	
 	@Test
 	public void validaEsportistaIndeciso() {
-		WebDriver driver = new FirefoxDriver();
-		driver.get("file:///C:/Users/SAMSUNG/eclipse-workspace/CursoSelenium/src/main/resources/componentes.html");
-		
 		driver.findElement(By.id("elementosForm:nome")).sendKeys("Marcos");
 		driver.findElement(By.id("elementosForm:sobrenome")).sendKeys("Tenorio");
 		driver.findElement(By.id("elementosForm:sexo:0")).click();

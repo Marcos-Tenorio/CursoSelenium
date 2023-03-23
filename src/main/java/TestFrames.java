@@ -1,4 +1,7 @@
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
@@ -8,11 +11,22 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class TestFrames {
 	
+	private WebDriver driver;
+	
+	@Before
+	public void inicializaDriver() {
+		WebDriver driver = new FirefoxDriver();
+		driver.get("file:///C:/Users/SAMSUNG/eclipse-workspace/CursoSelenium/src/main/resources/componentes.html");	
+	}
+	
+	@Ignore
+	@After
+	public void driverQuit(){
+		driver.quit();		
+	}
+	
 	@Test
 	public void testFrame() {
-		WebDriver driver = new FirefoxDriver();
-		driver.get("file:///C:/Users/SAMSUNG/eclipse-workspace/CursoSelenium/src/main/resources/componentes.html");
-	
 		driver.switchTo().frame("frame1");
 		driver.findElement(By.id("frameButton")).click();
 		Alert alert = driver.switchTo().alert();
@@ -27,9 +41,6 @@ public class TestFrames {
 
 	@Test
 	public void testJanelaComTitulo() {
-		WebDriver driver = new FirefoxDriver();
-		driver.get("file:///C:/Users/SAMSUNG/eclipse-workspace/CursoSelenium/src/main/resources/componentes.html");
-	
 		driver.findElement(By.id("buttonPopUpEasy")).click();
 		driver.switchTo().window("Popup");
 		driver.findElement(By.tagName("textarea")).sendKeys("Deu certo?");
@@ -41,9 +52,6 @@ public class TestFrames {
 	
 	@Test
 	public void testJanelaComWindowHandler() {
-		WebDriver driver = new FirefoxDriver();
-		driver.get("file:///C:/Users/SAMSUNG/eclipse-workspace/CursoSelenium/src/main/resources/componentes.html");
-	
 		driver.findElement(By.id("buttonPopUpEasy")).click();
 		driver.switchTo().window((String)driver.getWindowHandles().toArray()[1]);
 		driver.findElement(By.tagName("textarea")).sendKeys("Deu certo?");
