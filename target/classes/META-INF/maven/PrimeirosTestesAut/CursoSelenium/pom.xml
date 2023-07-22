@@ -10,5 +10,10 @@
   <artifactId>selenium-java</artifactId>
   <version>3.4.0</version>
   </dependency>
-  </dependencies>
+     <dependency>
+        <groupId>org.swinglabs</groupId>
+        <artifactId>swingx</artifactId>
+        <version>1.6.1</version>
+    </dependency>
+</dependencies>
 </project>

@@ -2,16 +2,19 @@ import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.junit.*;
 
 public class TestAlert {
 	
 	private WebDriver driver;
+	Actions actions = new Actions(driver);
 	
 	@Before
 	public void inicializaDriver() {
-		WebDriver driver = new FirefoxDriver();
+		WebDriver driver = new FirefoxDriver();	
 		driver.get("file:///C:/Users/SAMSUNG/eclipse-workspace/CursoSelenium/src/main/resources/componentes.html");	
+		
 	}
 	
 	@Ignore
@@ -21,6 +24,7 @@ public class TestAlert {
 	}
 	
 	@Test
+	@Ignore
 	public void testAlertSimples() {
 		driver.findElement(By.id("alert")).click();
 		Alert alert = driver.switchTo().alert();
@@ -62,4 +66,32 @@ public class TestAlert {
 		Assert.assertEquals(":D", alerta.getText());
 		alerta.accept();				
 	}
+	
+	public void testMove(){	
+		actions.moveByOffset(100, 200).click();
+	
+	
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
